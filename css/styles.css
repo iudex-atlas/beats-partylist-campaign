@@ -13,13 +13,21 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
 
 body {
     background: var(--black);
     color: var(--white);
     font-family: 'Rajdhani', sans-serif;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
 /* ── SCANLINE OVERLAY ── */
@@ -63,16 +71,18 @@ header::before {
     linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
     background-size: 60px 60px;
-    animation: gridShift 20s linear infinite;
-}
-
-@keyframes gridShift {
-    from { background-position: 0 0; }
-    to   { background-position: 60px 60px; }
+    background-position: 0 0; /* Lock position */
+    animation: none; /* Remove animation to keep grid static */
 }
 
 /* Corner decorations */
-.corner { position: fixed; width: 60px; height: 60px; }
+.corner {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  z-index: 999;
+  pointer-events: none;
+}
 .corner.tl { top: 24px; left: 24px; border-top: 2px solid var(--gold); border-left: 2px solid var(--gold); }
 .corner.tr { top: 24px; right: 24px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); }
 .corner.bl { bottom: 24px; left: 24px; border-bottom: 2px solid var(--gold); border-left: 2px solid var(--gold); }
@@ -186,23 +196,35 @@ h1.party-name {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    animation: fadeUp 1s ease both 0.8s;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+    text-align: center;
 }
 
-.scroll-hint span {
+/* Animated arrow */
+.scroll-hint::after {
+    content: '▼';
     display: block;
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(180deg, var(--gold), transparent);
-    animation: scrollLine 1.5s ease-in-out infinite;
+    font-size: 1.2rem;
+    color: var(--gold);
+    animation: arrowBounce 2s infinite;
 }
 
-@keyframes scrollLine {
-    0%   { transform: scaleY(0); transform-origin: top; }
-    50%  { transform: scaleY(1); transform-origin: top; }
-    51%  { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
+@keyframes arrowBounce {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(8px);
+        opacity: 0.6;
+    }
+}
+
+/* Remove the old span styling */
+.scroll-hint span {
+    display: none;
 }
 
 @keyframes fadeUp {
@@ -263,9 +285,12 @@ section {
     content: '';
     position: absolute; inset: 0;
     background-image:
-    linear-gradient(rgba(106,0,200,0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(106,0,200,0.07) 1px, transparent 1px);
-    background-size: 40px 40px;
+    linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0; /* Lock position */
+    animation: none; /* Remove animation to keep grid static */
+    z-index: 0;
 }
 
 .candidates-inner {
@@ -807,10 +832,13 @@ section {
     FOOTER
 ══════════════════════════════════ */
 footer {
+    position: relative;
+    margin-top: auto;
     background: var(--black);
     border-top: 1px solid rgba(240,192,64,0.15);
     padding: 3rem 2rem;
     text-align: center;
+    overflow: hidden;
 }
 
 .footer-logo {
@@ -1197,4 +1225,68 @@ footer p {
   .modal-content {
     font-size: 14px;
   }
+}
+
+/* ── SYNCHRONIZED GRID ACROSS ALL SECTIONS ── */
+
+/* Header grid */
+header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+    linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0; /* Lock position */
+    animation: none; /* Remove animation to keep grid static */
+}
+
+/* Candidates section grid */
+#candidates::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+    linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0; /* Lock position */
+    animation: none; /* Remove animation to keep grid static */
+    z-index: 0;
+}
+
+/* Platform section grid */
+#platform::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+    linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0; /* Lock position */
+    animation: none; /* Remove animation to keep grid static */
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Footer section grid */
+footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+    linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0;
+    animation: none;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Remove the gridShift animation or keep it but don't use it */
+@keyframes gridShift {
+    from { background-position: 0 0; }
+    to   { background-position: 60px 60px; }
 }
