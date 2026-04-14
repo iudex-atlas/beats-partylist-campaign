@@ -363,8 +363,16 @@ section {
     padding: 0 1rem;
 }
 
-@media (max-width: 700px) {
-    .candidate-card { grid-template-columns: 1fr; }
+@media (max-width: 768px) {
+    .candidate-card {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        padding: 0 0.5rem;
+    }
+    .cand-photo-box {
+        aspect-ratio: 4/3;
+        max-height: 260px;
+    }
 }
 
 .cand-photo-box {
@@ -913,6 +921,8 @@ footer {
     background-clip: text;
     letter-spacing: 0.1em;
     margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 footer p {
@@ -921,6 +931,8 @@ footer p {
     color: var(--gold-dim);
     letter-spacing: 0.25em;
     opacity: 0.6;
+    position: relative;
+    z-index: 1;
 }
 
 /* ══════════════════════════════════
@@ -1092,12 +1104,12 @@ footer p {
     }
 
     .modal-box {
-    width: 85vw;
+    width: 92vw;
     max-width: 500px;
     padding: 1.2rem;
-    margin: 1rem auto;
-    /* Add this for phones */
-    max-height: 65vh;
+    margin: 0 auto;
+    max-height: 80vh;
+    overflow-y: auto;
     }
 
     .modal-close {
@@ -1305,7 +1317,7 @@ footer p {
 
 /* ── SYNCHRONIZED GRID ACROSS ALL SECTIONS ── */
 
-/* Header grid */
+/* Header grid 
 header::before {
     content: '';
     position: absolute; inset: 0;
@@ -1313,9 +1325,9 @@ header::before {
     linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
     background-size: 60px 60px;
-    background-position: 0 0; /* Lock position */
-    animation: none; /* Remove animation to keep grid static */
-}
+    background-position: 0 0; /* Lock position 
+    animation: none; /* Remove animation to keep grid static 
+}*/
 
 /* Candidates section grid */
 #candidates::before {
@@ -1338,10 +1350,11 @@ header::before {
     linear-gradient(rgba(106,0,200,0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(106,0,200,0.12) 1px, transparent 1px);
     background-size: 60px 60px;
-    background-position: 0 0; /* Lock position */
-    animation: none; /* Remove animation to keep grid static */
+    background-position: 0 0;
+    animation: none;
     z-index: 0;
     pointer-events: none;
+    touch-action: none;
 }
 
 /* Footer section grid */
