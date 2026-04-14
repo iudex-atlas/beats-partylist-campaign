@@ -703,9 +703,11 @@ section {
     transform: translateY(40px) scale(0.96);
     transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1.2);
     box-shadow: 0 0 60px rgba(106,0,200,0.25), 0 0 120px rgba(240,192,64,0.08), inset 0 0 40px rgba(59,0,114,0.3);
-    max-height: 80vh;
+    max-height: 92vh;
     overflow-y: auto;
+    overflow-x: hidden;
     border-radius: 8px; /* Optional: adds subtle rounded corners instead of clipped edges */
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-box::-webkit-scrollbar {
@@ -1378,4 +1380,20 @@ footer::before {
 @keyframes gridShift {
     from { background-position: 0 0; }
     to   { background-position: 60px 60px; }
+}
+
+/* Prevent background scrolling when modal is open */
+body.modal-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    touch-action: none;           /* Extra safety for mobile */
+}
+
+/* Optional: Restore original scroll position when closing */
+body.modal-open {
+    width: 100%;
 }
