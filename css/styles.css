@@ -16,6 +16,25 @@
 html {
     height: 100%;
     scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-dim) rgba(10,0,16,0.3);
+}
+
+html::-webkit-scrollbar {
+    width: 8px;
+}
+
+html::-webkit-scrollbar-track {
+    background: rgba(10,0,16,0.3);
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+    border-radius: 4px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
 }
 
 body {
@@ -628,10 +647,12 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .modal-overlay.active {
@@ -653,6 +674,23 @@ section {
     max-height: 80vh;
     overflow-y: auto;
     border-radius: 8px; /* Optional: adds subtle rounded corners instead of clipped edges */
+}
+
+.modal-box::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-box::-webkit-scrollbar-track {
+    background: rgba(59,0,114,0.2);
+}
+
+.modal-box::-webkit-scrollbar-thumb {
+    background: var(--gold-dim);
+    border-radius: 3px;
+}
+
+.modal-box::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
 }
 
 .modal-overlay.active .modal-box {
@@ -902,8 +940,8 @@ footer p {
     }
 
     .modal-box {
-    width: 95vw;
-    max-width: none;
+    width: 90vw;
+    max-width: 600px;
     margin: 2rem auto;
     padding: 1.5rem;
     /* Add this for tablets */
@@ -1023,11 +1061,12 @@ footer p {
     }
 
     .modal-box {
-    width: 98vw;
-    padding: 1rem;
+    width: 85vw;
+    max-width: 500px;
+    padding: 1.2rem;
     margin: 1rem auto;
     /* Add this for phones */
-    max-height: 60vh;
+    max-height: 65vh;
     }
 
     .modal-close {
