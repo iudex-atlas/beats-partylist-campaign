@@ -683,7 +683,7 @@ section {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.35s ease;
-    overflow-y: auto;
+    overflow: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -706,6 +706,8 @@ section {
     max-height: 92vh;
     overflow-y: auto;
     overflow-x: hidden;
+    overscroll-behavior: contain;
+    touch-action: pan-y;
     border-radius: 8px; /* Optional: adds subtle rounded corners instead of clipped edges */
     -webkit-overflow-scrolling: touch;
 }
@@ -1390,7 +1392,6 @@ body.modal-open {
     right: 0;
     bottom: 0;
     overflow: hidden;
-    touch-action: none;           /* Extra safety for mobile */
 }
 
 /* Optional: Restore original scroll position when closing */
