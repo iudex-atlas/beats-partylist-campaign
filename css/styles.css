@@ -684,6 +684,7 @@ section {
     pointer-events: none;
     transition: opacity 0.35s ease;
     overflow: hidden;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -695,6 +696,7 @@ section {
 
 .modal-box {
     position: relative;
+    z-index: 10000;
     max-width: 680px;
     width: 100%;
     background: linear-gradient(135deg, #1a0030 0%, #0d001f 60%, #110020 100%);
