@@ -676,7 +676,7 @@ section {
     background: rgba(10,0,16,0.85);
     backdrop-filter: blur(6px);
     z-index: 10000;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     padding: 1rem;
@@ -690,6 +690,7 @@ section {
 .modal-overlay.active {
     opacity: 1;
     pointer-events: all;
+    display: flex;
 }
 
 .modal-box {
